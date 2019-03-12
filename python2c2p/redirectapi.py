@@ -35,7 +35,7 @@ class twoctwop_redirectapi:
             html.append('<input type="hidden" name="%s" value="%s" />' % (key, self.data[key]))
         html.append('<input type="submit" value="Pay now">')
         html.append('</form>')
-        html.append('<script>document.forms.%s.submit()</script>' % fornm_id)
+        html.append('<script>document.forms.%s.submit()</script>' % form_id)
         return ''.join(html)
 
     def set_value(self, key, value):
