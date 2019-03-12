@@ -45,6 +45,17 @@ class twoctwop_redirectapi:
             value = self._get_currency_id_from_code(value)
         self.data[key] = value
 
+    def _get_currency_code_from_id(self, id):
+        return {
+            '344': 'HKD',
+            '360': 'IDR',
+            '104': 'MMK',
+            '458': 'MYR',
+            '608': 'PHP',
+            '702': 'SGD',
+            '764': 'THB',
+        }[str(id)]
+
     def _get_currency_id_from_code(self, code):
         return {
             'HKD': 344,
@@ -84,4 +95,32 @@ class twoctwop_redirectapi:
         ).hexdigest()
 
         return hash.upper()
+
+    def _validate_response_hash(self, request):
+        fields = [
+            'version', 'request_timestamp', 'merchant_id', 'order_id',
+            'invoice_no', 'currency', 'amount', 'transaction_ref',
+            'approval_code', 'eci', 'transaction_datetime', 'payment_channel',
+            'payment_status', 'channel_response_code', 'channel_response_desc',
+            'masked_pan', 'stored_card_unique_id', 'backend_invoice',
+            'paid_channel', 'paid_agent', 'recurring_unique_id', 'user_defined_1',
+            'user_defined_2', 'user_defined_3', 'user_defined_4', 'user_defined_5',
+            'browser_info', 'ippPeriod', 'ippInterestType', 'ippInterestRate',
+            'ippMerchantAbsorbRate', 'payment_scheme', 'process_by'
+        ]
+
+        # generate plain string
+        hash_str = ''
+        for f in fields:
+            if f in request.POST:
+                hash_str = '%s%s' % (hash_str, request.POST[f])
+
+        # generate hash from secret key
+        hash = hmac.new(
+            bytes(self.secret_key, 'latin-1'),
+            bytes(hash_str, 'latin-1'),
+            hashlib.sha1
+        ).hexdigest()
+
+        return request.POST['hash_value'].lower() == hash.lower()
 

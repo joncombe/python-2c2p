@@ -4,7 +4,7 @@ from setuptools import find_packages
 
 setup(
     name='python-2c2p',
-    version='0.0.2',
+    version='0.0.3',
     author=u'Jon Combe',
     author_email='jon@getsalebox.com',
     packages=find_packages(),
@@ -12,7 +12,7 @@ setup(
     install_requires=[],
     url='https://github.com/joncombe/python-2c2p',
     license='BSD licence, see LICENCE file',
-    description='Python class to connect with 2c2p.com redirect API',
+    description='Python class to connect with 2c2p.com redirect API (version 7.5)',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
