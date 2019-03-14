@@ -9,6 +9,7 @@ class twoctwop_redirectapi:
         self.secret_key = secret_key
         self.data = {
             'merchant_id': merchant_id,
+            'order_id': int(round(time.time() * 1000)),
             'version': '7.5'
         }
 
