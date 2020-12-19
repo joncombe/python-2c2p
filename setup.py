@@ -6,7 +6,7 @@ setup(
     name='python-2c2p',
     version='0.0.4',
     author=u'Jon Combe',
-    author_email='jon@getsalebox.com',
+    author_email='jon@salebox.io',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[],
